@@ -1,15 +1,20 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  # Pod名は名前空間とあわせて一意にする
-  name: test
-  namespace: default
-  # ラベルは任意
+  name: nginx
   labels:
-    env: study
+    app: http-app
 spec:
   containers:
-    - name: hello-world
-  # バージョン指定がないと、latest指定になる
-      image: hello-world
-
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - name: http-port
+          containerPort: 80
+      volumeMounts:
+        - name: documentroot
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: documentroot
+      hostPath:
+        path: /PATH/TO/DIR # 作業ディレクトリ
