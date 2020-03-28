@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  # Pod名は名前空間とあわせて一意にする
+  name: test
+  namespace: default
+  # ラベルは任意
+  labels:
+    env: study
+spec:
+  containers:
+    - name: hello-world
+  # バージョン指定がないと、latest指定になる
+      image: hello-world
+
