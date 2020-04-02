@@ -1,15 +1,31 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  # Pod名は名前空間とあわせて一意にする
-  name: test
+  name: debug
   namespace: default
-  # ラベルは任意
-  labels:
-    env: study
 spec:
   containers:
-    - name: hello-world
-  # バージョン指定がないと、latest指定になる
-      image: hello-world
+    - name: debug
+      image: centos:7
+      command:
+        - "sh"
+        - "-c"
+      args:
+        - |
+          while true
+          do
+            sleep ${DELAY}
+          done
+      env:
+        - name: "DELAY"
+          value: "86400"
 
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.17.2-alpine
